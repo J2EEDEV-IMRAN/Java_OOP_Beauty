@@ -1,0 +1,49 @@
+ for (SectionDescriptionFootnoteForActSection sectionDescriptionFootnote : actSection.getSectionDescriptionFootnoteList()
+                    ) {
+                for (Integer i = sectionDescriptionFootnote.getFootnoteNumber() + 1; i <= actSection.getSectionDescriptionFootnoteList().size(); i++) {
+                    List<SectionDescriptionFootnoteForActSection> FN = actSection.getSectionDescriptionFootnoteList();
+                    Integer dupfnumber;
+                    SectionDescriptionFootnoteForActSection oneFN = FN.get(actSection.getSectionDescriptionFootnoteList().size() - 1);
+                    Integer laFN = oneFN.getFootnoteNumber();
+
+                    if (tracker == actSection.getSectionDescriptionFootnoteList().size()) {
+
+                        if (sectionDescriptionFootnote.getFootnoteNumber() == laFN) {
+                            dupfnumber = sectionDescriptionFootnote.getFootnoteNumber();
+
+                            List<SectionDescriptionFootnoteForActSection> footnotes = sectionDescriptionFootnoteActSectionRepository.getFootNoatFrom(dupfnumber, actSection.getId());
+                            SectionDescriptionFootnoteForActSection footnotesOld = sectionDescriptionFootnoteActSectionRepository.getOneFootNoat(dupfnumber, actSection.getId());
+                            actSection.getSectionDescriptionFootnoteList().get(actSection.getSectionDescriptionFootnoteList().size() - 1).setId(footnotesOld.getId());
+
+                            for (SectionDescriptionFootnoteForActSection Footnote : footnotes
+                                    ) {
+                                Integer fnTrack = 1;
+                                System.out.println(footnotes.size());
+                                if (fnTrack < footnotes.size()) {
+                                    actSection.getSectionDescriptionFootnoteList().get(Footnote.getFootnoteNumber() - 1).setFootnoteNumber(Footnote.getFootnoteNumber() + 1);
+                                    actSection.getSectionDescriptionFootnoteList().get(Footnote.getFootnoteNumber() - 1).setId(Footnote.getId() + 1);
+
+                                }
+
+                            }
+
+
+                        }
+
+                    }
+
+                }
+                if (tracker < actSection.getSectionDescriptionFootnoteList().size()) {
+                    tracker = tracker + 1;
+                }
+
+
+                if (sectionDescriptionFootnote.getActSection() == null) {
+                    sectionDescriptionFootnote.setActSection(actSection);
+                }
+                sectionDescriptionFootnote.setCreatedBy(actSectionOld.getCreatedBy());
+                sectionDescriptionFootnote.setCreatedAt(actSectionOld.getCreatedAt());
+                sectionDescriptionFootnote.setUpdatedBy(getUsername());
+                sectionDescriptionFootnote.setUpdatedAt(new Date());
+
+        }
