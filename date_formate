@@ -1,0 +1,19 @@
+import java.text.SimpleDateFormat;  
+import java.util.Date; 
+public class Main
+{
+	public static void main(String[] args) {
+	    try {
+	        String date="Sat Jun 01 12:53:10 IST 2013";
+        SimpleDateFormat sdf=new SimpleDateFormat("E MMM dd HH:mm:ss z yyyy");
+        Date currentdate=sdf.parse(date);
+        //SimpleDateFormat sdf2=new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf2=new SimpleDateFormat("dd-MM-yyyy");
+        System.out.println(sdf2.format(currentdate));
+        
+	    } catch(Exception e) {
+	    } finally {
+	    }
+	   
+	}
+}
